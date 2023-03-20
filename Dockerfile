@@ -12,6 +12,6 @@ RUN tar -xvzf apache*.tar.gz
 RUN mv apache-tomcat-9.0.73/* /opt/Tomcat
 RUN java -version
 WORKDIR /opt/Tomcat/webapps
-COPY CloudGen-1.war /opt/Tomcat/webapps/
+COPY ./Cloud-DevOps_1-1.0-SNAPSHOT.war /opt/Tomcat/webapps/
 EXPOSE 8080
 CMD ["/opt/Tomcat/bin/startup.sh", "run"]
