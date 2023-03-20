@@ -12,6 +12,6 @@ RUN tar -xvzf apache*.tar.gz
 RUN mv apache-tomcat-9.0.73/* /opt/Tomcat
 RUN java -version
 WORKDIR /opt/Tomcat/webapps
-COPY /root/.jenkins/workspace/docker-image-build/target/cloudgen.war /opt/Tomcat/webapps/
+COPY /root/.jenkins/workspace/docker-image-build/target/CloudGen-1.war /opt/Tomcat/webapps/
 EXPOSE 8080
 CMD ["/opt/Tomcat/bin/startup.sh", "run"]
