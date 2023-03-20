@@ -19,8 +19,8 @@ pipeline
 		}
 		stage("Copying the War file to Job Location"){
 			steps{
-				sh 'cp /root/.jenkins/workspace/docker-image-build/target/*.war cp /root/.jenkins/workspace/docker-image-build' 
-						
+				sh 'cp /root/.jenkins/workspace/docker-image-build/target/*.war /root/.jenkins/workspace/docker-image-build' 
+
 		}
 	}
 		stage("Docker Image Build"){
