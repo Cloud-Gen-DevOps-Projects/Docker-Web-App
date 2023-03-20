@@ -8,7 +8,7 @@ pipeline
 	stages{
 		stage('Code Checkout'){
 			steps{
-				git branch: 'main', url: 'https://github.com/CloudGen0007/Maven7AM.git'
+				git branch: 'main', url: 'https://github.com/Devops9AM/Docker-Web-App.git'
 
 			}
 		}
@@ -19,8 +19,8 @@ pipeline
 		}
 		stage("Copying the War file to Job Location"){
 			steps{
-			sh 'chmod u+x warcopy.sh'
-			sh './warcopy.sh'
+				sh 'cp /root/.jenkins/workspace/docker-image-build/target/*.war cp /root/.jenkins/workspace/docker-image-build' 
+						
 		}
 	}
 		stage("Docker Image Build"){
@@ -34,6 +34,34 @@ pipeline
 			sh 'docker image tag $JOB_NAME:v1:$BUILD_ID thanish/$JOB_NAME:latest'
 		}
 
+		}
+	}
+}
+
+
+
+
+
+
+
+pipeline
+{
+	agent any
+	tools
+	{
+	maven "maven"
+	}
+	stages{
+		stage('Code Checkout'){
+			steps{
+				git branch: 'main', url: 'https://github.com/CloudGen0007/Maven7AM.git'
+
+			}
+		}
+		stage('Execute Maven'){
+			steps{
+				sh 'mvn package'
+			}
 		}
 	}
 }
