@@ -19,7 +19,8 @@ pipeline
 		}
 		stage("Copying the War file to Job Location"){
 			steps{
-			sh 'cp /root/.jenkins/workspace/docker-image-build/target/CloudGen-1.war    /root/.jenkins/workspace/docker-image-build' 
+			sh 'mv /root/.jenkins/workspace/docker-image-build/target/CloudGen-1.war Cloud-DevOps_1-1.0-SNAPSHOT.war'
+			sh 'cp /root/.jenkins/workspace/docker-image-build/target/Cloud-DevOps_1-1.0-SNAPSHOT.war    /root/.jenkins/workspace/docker-image-build' 
 		}
 	}
 		stage("Docker Image Build"){
