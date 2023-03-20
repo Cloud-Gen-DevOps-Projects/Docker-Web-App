@@ -21,6 +21,8 @@ pipeline
 			steps{
 			sh 'chmod u+x warcopy.sh'
 			sh './warcopy.sh'
+		}
+	}
 		stage("Docker Image Build"){
 			steps{
 			sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID . '
