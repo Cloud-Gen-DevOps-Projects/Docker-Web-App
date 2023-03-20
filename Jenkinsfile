@@ -35,6 +35,16 @@ pipeline
 		}
 
 		}
+		stage("push Image: DOCKERHUB"){
+             steps{
+                withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
+                sh "docker login -u thanish -p ${DockerPassword}"
+                sh 'docker image push thanish/$JOB_NAME:v1.$BUILD_ID'
+                sh 'docker image push thanish/$JOB_NAME:latest'
+                sh 'docker image rm $JOB_NAME:v1.$BUILD_ID thanish/$JOB_NAME:v1.$BUILD_ID thanish/$JOB_NAME:latest'
+              }
+             }
+         }
 	}
 }
 
