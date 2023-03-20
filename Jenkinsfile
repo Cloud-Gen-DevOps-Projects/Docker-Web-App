@@ -31,7 +31,7 @@ pipeline
 			stage("Docker Image taging"){
 			steps{
 			sh 'docker image tag $JOB_NAME:v1.$BUILD_ID thanish/$JOB_NAME:v1.$BUILD_ID'
-			sh 'docker image tag $JOB_NAME:v1:$BUILD_ID thanish/$JOB_NAME:latest'
+			
 		}
 
 		}
