@@ -17,15 +17,16 @@ pipeline
 				sh 'mvn package'
 			}
 		}
-
-
-		stage("Docker Image Build")
-		{
+		stage("Docker Image Build"){
+			steps{
 			sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID . '
-		}
-		stage("Docker Image taging"){
+			}
+	             }
+			stage("Docker Image taging"){
+			steps{
 			sh 'docker image tag $JOB_NAME:v1.$BUILD_ID thanish/$JOB_NAME:v1.$BUILD_ID'
 			sh 'docker image tag $JOB_NAME:v1:$BUILD_ID thanish/$JOB_NAME:latest'
+		}
 
 		}
 	}
