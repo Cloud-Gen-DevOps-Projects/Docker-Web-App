@@ -1,0 +1,26 @@
+---
+- name: Install Apache Tomcat  Server
+  hosts: 192.168.121.143
+  become: true
+
+  tasks:
+  - name: Install Java
+    yum:
+      name: java
+      state: latest
+  - name: Download Apache Tomcat Server Package
+    get_url:
+      url: https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.58/bin/apache-tomcat-8.5.58.tar.gz
+      dest: /opt
+  - name: Extracting the  Apache Tomcat Server Tar File.
+    unarchive:
+      src: /opt/apache-tomcat-8.5.58.tar.gz
+      dest: /opt
+      remote_src: yes
+  - name: Downloading the The Jenkins.war file
+    get_url:
+      url: https://get.jenkins.io/war-stable/2.249.1/jenkins.war
+      dest: /opt/apache-tomcat-8.5.58/webapps
+  - name: Starting the Apache Tomcat Server Software
+    shell: nohup /opt/apache-tomcat-8.5.58/bin/startup.sh
+
