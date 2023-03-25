@@ -17,18 +17,26 @@ pipeline
 				sh 'mvn package'
 			}
 		}
+
+		stage('War Deploy into Nexus'){
+			steps{
+				sh 'mvn deploy'
+			}
+		}
+
+
 		stage("Copying the War file to Job Location"){
 			steps{
-				sh 'cp /root/.jenkins/workspace/code-pull-war-build/target/*.war /root/.jenkins/workspace/code-pull-war-build'
+				sh 'cp /var/lib/jenkins/workspace/code-pull-war-build-image-build-image-tag/target/*.war /var/lib/jenkins/workspace/code-pull-war-build-image-build-image-tag' 
 
 		}
 	}
-		stage("Docker Image Build"){
+	    stage("Docker Image Build"){
 			steps{
 			sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID . '
 			}
 	             }
-			stage("Docker Image taging"){
+	   stage("Docker Image taging"){
 			steps{
 			sh 'docker image tag $JOB_NAME:v1.$BUILD_ID thanish/$JOB_NAME:v1.$BUILD_ID'
 			
@@ -37,13 +45,16 @@ pipeline
 		}
 		stage("push Image: DOCKERHUB"){
              steps{
+
                 withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
                 sh 'docker login -u thanish -p ${DockerPassword}'
                 sh 'docker image push thanish/$JOB_NAME:v1.$BUILD_ID'
                 sh 'docker image rm $JOB_NAME:v1.$BUILD_ID thanish/$JOB_NAME:V1.$BUILD_ID'
               }
-             }
          }
+      }
 	}
 }
+
+
 
