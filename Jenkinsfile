@@ -27,7 +27,7 @@ pipeline
 
 		stage("Copying the War file to Job Location"){
 			steps{
-				sh 'cp /var/lib/jenkins/workspace/code-pull-war-build-image-build-image-tag/target/*.war /var/lib/jenkins/workspace/code-pull-war-build-image-build-image-tag' 
+				sh 'cp /var/lib/jenkins/workspace/4444/target/*.war /var/lib/jenkins/workspace/4444' 
 
 		}
 	}
