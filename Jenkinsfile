@@ -53,6 +53,10 @@ pipeline
               }
          }
       }
+		stage("Email Nontification")
+		{
+			mail bcc: '', body: 'Hi Welcome to Jenkins Email Alters', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'ravindra.devops@gmail.com'
+		}
 	}
 }
 
