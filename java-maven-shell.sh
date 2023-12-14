@@ -29,6 +29,7 @@ sudo yum -y install fontconfig
 
 
 # Download Java (adjust the version and download link as needed)
+cd /opt
 wget http://clouddevops.in/jdk-11.0.21_linux-x64_bin.tar.gz
 
 # Extract Java to /opt
