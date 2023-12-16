@@ -31,6 +31,12 @@ set_hostnames() {
 #    echo "Local DNS set in /etc/hosts on the controller"
 #}
 
+# Function to set local DNS in /etc/hosts on the controller
+set_local_dns() {
+    echo -e "192.168.67.132 node1\n192.168.67.148 node2\n192.168.67.144 node3\n192.168.67.145 node4" | sudo tee -a /etc/hosts >/dev/null
+    echo "Local DNS set in /etc/hosts on the controller"
+}
+
 # Generate SSH key and share with all servers
 generate_and_share_sshkey() {
     if [ ! -f ~/.ssh/id_rsa.pub ]; then
@@ -82,13 +88,26 @@ create_ansible_inventory() {
     echo "" >> /etc/ansible/hosts
     echo "[http]" >> /etc/ansible/hosts
     echo "node4" >> /etc/ansible/hosts
+    echo "Ansible inventory created  with host names at /etc/ansible/hosts"
+    echo -e "\n[test]" >> /etc/ansible/hosts
+    echo "192.168.67.132" >> /etc/ansible/hosts   # Replace with the corresponding IP for node1
 
-    echo "Ansible inventory created at /etc/ansible/hosts"
+    echo -e "\n[db]" >> /etc/ansible/hosts
+    echo "192.168.67.148" >> /etc/ansible/hosts   # Replace with the corresponding IP for node2
+
+    echo -e "\n[app]" >> /etc/ansible/hosts
+    echo "192.168.67.144" >> /etc/ansible/hosts   # Replace with the corresponding IP for node3
+
+    echo -e "\n[http]" >> /etc/ansible/hosts
+    echo "192.168.67.145" >> /etc/ansible/hosts   # Replace with the corresponding IP for node4
+
+    echo "Ansible inventory created with ip addresses at /etc/ansible/hosts"
 }
 
 # Execute functions
 set_hostnames
 set_sudo_privileges
+set_local_dns
 generate_and_share_sshkey
 install_epel_controller
 install_ansible
