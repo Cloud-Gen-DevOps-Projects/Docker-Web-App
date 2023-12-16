@@ -76,32 +76,25 @@ create_ansible_inventory() {
     echo "" >> /etc/ansible/hosts
     echo "[test]" >> /etc/ansible/hosts
     echo "node1" >> /etc/ansible/hosts
+    echo "192.168.67.132" >> /etc/ansible/hosts
 
     echo "" >> /etc/ansible/hosts
     echo "[db]" >> /etc/ansible/hosts
     echo "node2" >> /etc/ansible/hosts
+    echo "192.168.67.148" >> /etc/ansible/hosts
 
     echo "" >> /etc/ansible/hosts
     echo "[app]" >> /etc/ansible/hosts
     echo "node3" >> /etc/ansible/hosts
-
+    echo "192.168.67.144" >> /etc/ansible/hosts
+    
     echo "" >> /etc/ansible/hosts
     echo "[http]" >> /etc/ansible/hosts
     echo "node4" >> /etc/ansible/hosts
-    echo "Ansible inventory created  with host names at /etc/ansible/hosts"
-    echo -e "\n[test]" >> /etc/ansible/hosts
-    echo "192.168.67.132" >> /etc/ansible/hosts   # Replace with the corresponding IP for node1
+    echo "192.168.67.145" >> /etc/ansible/hosts
 
-    echo -e "\n[db]" >> /etc/ansible/hosts
-    echo "192.168.67.148" >> /etc/ansible/hosts   # Replace with the corresponding IP for node2
-
-    echo -e "\n[app]" >> /etc/ansible/hosts
-    echo "192.168.67.144" >> /etc/ansible/hosts   # Replace with the corresponding IP for node3
-
-    echo -e "\n[http]" >> /etc/ansible/hosts
-    echo "192.168.67.145" >> /etc/ansible/hosts   # Replace with the corresponding IP for node4
-
-    echo "Ansible inventory created with ip addresses at /etc/ansible/hosts"
+    echo "Ansible inventory created  with host names and IP Addresses at /etc/ansible/hosts"
+    
 }
 
 # Execute functions
