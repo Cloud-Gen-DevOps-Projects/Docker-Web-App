@@ -44,6 +44,11 @@ generate_and_share_sshkey() {
         echo "SSH key shared to $ip"
     done
 }
+# Install Ansible only on the controller
+install_ansible() {
+    ssh root@192.168.67.147 "yum install -y ansible"
+    echo "Ansible installed on the controller"
+}
 
 # Install Ansible only on the controller
 install_ansible() {
@@ -84,5 +89,6 @@ create_ansible_inventory() {
 set_hostnames
 set_sudo_privileges
 generate_and_share_sshkey
+install_ansible
 install_ansible
 create_ansible_inventory
