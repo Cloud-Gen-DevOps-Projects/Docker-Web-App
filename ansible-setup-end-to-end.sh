@@ -99,7 +99,7 @@ create_ansible_inventory() {
 
 # Execute functions
 set_hostnames
-set_sudo_privileges
+#set_sudo_privileges
 set_local_dns
 generate_and_share_sshkey
 install_epel_controller
