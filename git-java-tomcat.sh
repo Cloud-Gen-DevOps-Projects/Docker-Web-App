@@ -1,37 +1,24 @@
 #!/bin/bash
 
 # Software Versions
-GIT_VERSION="2.43.0"
 TOMCAT_VERSION="9.0.84"
 
 # Software URLs
-GIT_URL="https://mirrors.edge.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz"
 TOMCAT_URL="https://dlcdn.apache.org/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz"
 
 # Update system and install necessary tools
 hostnamectl set-hostname appserver
-yum install wget tar make unzip vim curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker java-11-openjdk-devel -y
 
 # Stop firewall
 sudo systemctl stop firewalld
 sudo yum install java-11-openjdk-devel -y
 
 # Install Git
-yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker -y
-cd /opt
-wget "$GIT_URL"
-tar -xvf "git-${GIT_VERSION}.tar.gz"
-cd "git-${GIT_VERSION}"
-make prefix=/usr/local/git all
-make prefix=/usr/local/git install
-GIT_LINE='export PATH=$PATH:/usr/local/git/bin'
-echo "$GIT_LINE" >> ~/.bashrc
-source ~/.bashrc
-git --version
 
 # Set up Java environment
-JAVA_HOME_LINE="export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-${JAVA_VERSION}"
-PATH_LINE="export PATH=\$PATH:/usr/lib/jvm/java-11-openjdk-${JAVA_VERSION}/bin"
+mv /usr/lib/jvm/java-11* /usr/lib/jvm/java-11
+JAVA_HOME_LINE="export JAVA_HOME=/usr/lib/jvm/java-11"
+PATH_LINE="export PATH=\$PATH:/usr/lib/jvm/java-11-openjdk/bin"
 
 # Check if the lines already exist in the .bashrc file
 if grep -Fxq "$JAVA_HOME_LINE" ~/.bashrc && grep -Fxq "$PATH_LINE" ~/.bashrc; then
@@ -57,6 +44,7 @@ function check_java_home {
         fi
     fi
 }
+source ~/.bashrc
 
 echo 'Installing tomcat server...'
 echo 'Checking for JAVA_HOME...'
@@ -123,7 +111,8 @@ sudo systemctl daemon-reload
 </Context>
 EOF'
 
-
+    echo 'Tomcat Service Starting'
+    sudo systemctl status tomcat
     echo 'Tomcat Server Enabling '
     sudo systemctl enable tomcat
     exit
@@ -134,6 +123,5 @@ fi
 
 systemctl status tomcat
 
-git --version
 java -version
 

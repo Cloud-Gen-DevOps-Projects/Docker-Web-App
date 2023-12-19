@@ -22,7 +22,7 @@ sudo bash -c 'cat << EOF > /opt/tomcat/webapps/manager/META-INF/context.xml
 EOF'
 
 # Create Tomcat service file
-sudo bash -c 'cat << EOF > /etc/systemd/system/tomcat.service
+sudo bash -c 'cat << "EOF" > /etc/systemd/system/tomcat.service
 [Unit]
 Description=Apache Tomcat Web Application Container
 After=syslog.target network.target
@@ -44,7 +44,6 @@ Group=<your_groupname>
 [Install]
 WantedBy=multi-user.target
 EOF'
-
 # Reload systemd manager configuration
 sudo systemctl daemon-reload
 
