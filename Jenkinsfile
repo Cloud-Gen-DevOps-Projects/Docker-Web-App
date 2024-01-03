@@ -1,65 +1,39 @@
 pipeline
 {
-	agent any
-	tools
-	{
-	maven "maven"
-	}
+	agent any 
 	stages{
-		stage('Code Checkout'){
+		stage('Code Pull'){
 			steps{
 				git branch: 'main', url: 'https://github.com/Devops9AM/Docker-Web-App.git'
-
 			}
 		}
-		stage('Execute Maven'){
+		stage('Code Validate'){
+			steps{
+				sh 'mvn validate'
+			}
+		}
+		stage('Maven Plugins Install'){
+			steps{
+				sh 'mvn install'
+			}
+		}
+		stage('Code Compile'){
+			steps{
+				sh 'mvn install'
+			}
+		}
+		stage('Package'){
 			steps{
 				sh 'mvn package'
 			}
 		}
-
-		stage('War Deploy into Nexus'){
+		stage('Aritifact Deploy'){
 			steps{
 				sh 'mvn deploy'
 			}
 		}
 
 
-		stage("Copying the War file to Job Location"){
-			steps{
-				sh 'cp /var/lib/jenkins/workspace/4444/target/*.war /var/lib/jenkins/workspace/4444' 
-
-		}
-	}
-	    stage("Docker Image Build"){
-			steps{
-			sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID . '
-			}
-	             }
-	   stage("Docker Image taging"){
-			steps{
-			sh 'docker image tag $JOB_NAME:v1.$BUILD_ID thanish/$JOB_NAME:v1.$BUILD_ID'
-			
-		}
-
-		}
-		stage("push Image: DOCKERHUB"){
-             steps{
-
-                withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
-                sh 'docker login -u thanish -p ${DockerPassword}'
-                sh 'docker image push thanish/$JOB_NAME:v1.$BUILD_ID'
-                
-              }
-         }
-      }
-		stage("Email Nontification"){
-              steps{
-			mail bcc: '', body: 'Hi Welcome to Jenkins Email Alters', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'ravindra.devops@gmail.com'
-		}
-          }
 	}
 }
-
-
 
