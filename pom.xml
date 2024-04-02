@@ -5,6 +5,7 @@
   <version>1.4</version>
   <packaging>war</packaging>
   <build>
+    <!-- This is Test Script in comment -->
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
